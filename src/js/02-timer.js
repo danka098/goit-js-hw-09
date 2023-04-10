@@ -41,14 +41,21 @@ function convertMs(ms) {
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
-let timerId;
-
-startBtn.addEventListener('click', () => {
-  timerId = setInterval(() => {
-    let timeDifference = convertMs(datePicker.selectedDates[0] - currentDate);
+function countDown() {
+  let timerId = setInterval(() => {
+    let userDate = new Date().getTime();
+    let timeDifference = convertMs(
+      datePicker.selectedDates[0].getTime() - userDate
+    );
     dataDays.textContent = addLeadingZero(timeDifference.days);
     dataHours.textContent = addLeadingZero(timeDifference.hours);
     dataMinutes.textContent = addLeadingZero(timeDifference.minutes);
     dataSeconds.textContent = addLeadingZero(timeDifference.seconds);
+    console.log('countdown test');
+    if (timeDifference < 1001) {
+      clearInterval(timerId);
+    }
   }, 1000);
-});
+}
+
+startBtn.addEventListener('click', countDown);
