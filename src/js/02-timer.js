@@ -2,6 +2,7 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
 const startBtn = document.querySelector('[data-start]');
+startBtn.disabled = true;
 const dataDays = document.querySelector('[data-days]');
 const dataHours = document.querySelector('[data-hours]');
 const dataMinutes = document.querySelector('[data-minutes]');
@@ -52,7 +53,8 @@ function countDown() {
     dataMinutes.textContent = addLeadingZero(timeDifference.minutes);
     dataSeconds.textContent = addLeadingZero(timeDifference.seconds);
     console.log('countdown test');
-    if (timeDifference < 1001) {
+    startBtn.disabled = true;
+    if (datePicker.selectedDates[0].getTime() - userDate < 1001) {
       clearInterval(timerId);
     }
   }, 1000);
